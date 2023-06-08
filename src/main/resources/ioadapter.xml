@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+    <int:channel id="channel"/>
+    <int:inbound-channel-adapter id="inAdapter" channel="channel" method="produce">
+        <bean class="org.spring.integration.demo.DemoFilter$MessageProducer"/>
+        <int:poller fixed-rate="1000"/>
+    </int:inbound-channel-adapter>
+    <int:outbound-channel-adapter id="outAdapter" channel="channel" method="consume">
+        <bean class="org.spring.integration.demo.DemoFilter$MessageConsumer"/>
+    </int:outbound-channel-adapter>
+</beans>
